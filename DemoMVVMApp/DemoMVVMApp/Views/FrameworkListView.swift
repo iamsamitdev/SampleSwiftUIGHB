@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FrameworkListView: View {
     
-    // เรียกใช้งาน class FramewokrGridview
+    // เรียกใช้งาน class FrameworkListViewModel
     @StateObject var viewModel = FrameworkListViewModel()
     
     var body: some View {

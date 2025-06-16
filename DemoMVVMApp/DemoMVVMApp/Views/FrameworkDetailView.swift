@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SafariServices
 
 struct FrameworkDetailView: View {
     
@@ -13,6 +14,7 @@ struct FrameworkDetailView: View {
     
     @Binding var isShowingDetailView: Bool
     @Binding var isShowingListView: Bool
+    @State private var isShowingSafariView = false
     
     var body: some View {
         VStack {
@@ -49,7 +51,24 @@ struct FrameworkDetailView: View {
             
             Spacer()
             
+            Button {
+                isShowingSafariView = true
+            } label: {
+                Text("Learn More")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .frame(width: 280, height: 50)
+                    .background(.teal)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
             }
+            
+            Spacer()
+            
+            }
+        .fullScreenCover(isPresented: $isShowingSafariView) {
+            SafariView(url: URL(string: framework.urlString) ?? URL(string: "https://www.apple.com")!)
+        }
         }
     }
 
@@ -61,5 +80,18 @@ struct FrameworkDetailView_Previews: PreviewProvider {
             isShowingDetailView: .constant(false),
             isShowingListView: .constant(false)
         )
+    }
+}
+
+// MARK: - SafariView for SwiftUI
+struct SafariView: UIViewControllerRepresentable {
+    let url: URL
+    
+    func makeUIViewController(context: UIViewControllerRepresentableContext<SafariView>) -> SFSafariViewController {
+        return SFSafariViewController(url: url)
+    }
+    
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: UIViewControllerRepresentableContext<SafariView>) {
+        // No update needed
     }
 }
