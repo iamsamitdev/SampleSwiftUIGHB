@@ -10,14 +10,18 @@ import SwiftUI
 struct FrameworkListView: View {
     
     // เรียกใช้งาน class FramewokrGridview
-    @StateObject var viewModel = FrameworkGridViewModel()
+    @StateObject var viewModel = FrameworkListViewModel()
     
     var body: some View {
         NavigationView {
             List {
                 ForEach(MockData.frameworks, id: \.name) { framework in
                     NavigationLink(
-                        destination: FrameworkDetailView()
+                        destination: FrameworkDetailView(
+                            framework: framework,
+                            isShowingDetailView: $viewModel.isShowingDetailView,
+                            isShowingListView: $viewModel.isShowingListView
+                        )
                     ){
                         HStack {
                             Image(framework.imageName)
