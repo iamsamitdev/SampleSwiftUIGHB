@@ -109,30 +109,7 @@ struct OrderItemRow: View {
             Spacer()
             
             VStack {
-                HStack(spacing: 15) {
-                    Button {
-                        print("Decrease button tapped for \(orderItem.shopetizer.name)")
-                        order.decreaseQuantity(for: orderItem)
-                    } label: {
-                        ZStack {
-                            Circle()
-                                .fill(Color.red.opacity(0.1))
-                                .frame(width: 44, height: 44)
-                            Image(systemName: "minus.circle.fill")
-                                .foregroundColor(.red)
-                                .imageScale(.large)
-                        }
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    Text("\(orderItem.quantity)")
-                        .font(.title3)
-                        .fontWeight(.semibold)
-                        .frame(width: 40)
-                        .padding(.horizontal, 8)
-                        .background(Color.gray.opacity(0.1))
-                        .cornerRadius(8)
-                    
+                VStack(spacing: 8) {
                     Button {
                         print("Increase button tapped for \(orderItem.shopetizer.name)")
                         order.increaseQuantity(for: orderItem)
@@ -140,10 +117,32 @@ struct OrderItemRow: View {
                         ZStack {
                             Circle()
                                 .fill(Color.green.opacity(0.1))
-                                .frame(width: 44, height: 44)
+                                .frame(width: 36, height: 36)
                             Image(systemName: "plus.circle.fill")
                                 .foregroundColor(.green)
-                                .imageScale(.large)
+                                .imageScale(.medium)
+                        }
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Text("\(orderItem.quantity)")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .frame(width: 40, height: 30)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(8)
+                    
+                    Button {
+                        print("Decrease button tapped for \(orderItem.shopetizer.name)")
+                        order.decreaseQuantity(for: orderItem)
+                    } label: {
+                        ZStack {
+                            Circle()
+                                .fill(Color.red.opacity(0.1))
+                                .frame(width: 36, height: 36)
+                            Image(systemName: "minus.circle.fill")
+                                .foregroundColor(.red)
+                                .imageScale(.medium)
                         }
                     }
                     .buttonStyle(PlainButtonStyle())
