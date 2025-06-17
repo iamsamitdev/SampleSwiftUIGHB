@@ -15,6 +15,12 @@ final class ShopetizerListViewModel: ObservableObject {
     // สร้างตัวแปร State ไว้เก็บสถานะการ loading
     @Published var isLoading: Bool = false
     
+    // สร้างตัวแปร State ไว้แสดงหน้า Detail
+    @Published var isShowingDetail = false
+    
+    // สร้างตัวแปร State ไว้เก็บรายการที่เลือก
+    @Published var selectedShopetizer: Shopetizer?
+    
     // สร้าง Method ไว้อ่านข้อมูลรายการสินค้า
     func getShopetizers() {
         

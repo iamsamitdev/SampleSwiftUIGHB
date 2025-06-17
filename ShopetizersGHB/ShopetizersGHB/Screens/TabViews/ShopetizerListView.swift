@@ -18,7 +18,9 @@ struct ShopetizerListView: View {
                 List(viewModel.shopetizers) { shopetizer in
                     ShopetizerListCell(shopetizer: shopetizer)
                         .onTapGesture {
-                            print("Tap on shopetizer: \(shopetizer.name)")
+                            print("Tapped on \(shopetizer.name)")
+                            viewModel.selectedShopetizer = shopetizer
+                            viewModel.isShowingDetail = true
                         }
                 }
                 .listStyle(.plain)
@@ -28,10 +30,18 @@ struct ShopetizerListView: View {
             .onAppear {
                 viewModel.getShopetizers()
             }
+            .blur(radius: viewModel.isShowingDetail ? 20 : 0)
             
             // แสดง loading หากยังโหลดข้อมูลไม่เสร็จ
             if viewModel.isLoading {
                 LoadingView(loadingTitle: "กำลังโหลดรายการสินค้า...")
+            }
+            
+            // แสดงหน้า detail เป็น popup
+            if viewModel.isShowingDetail, let selectedShopetizer = viewModel.selectedShopetizer {
+                ShopetizerDetailView(
+                    shopetizer: selectedShopetizer,
+                    isShowingDetail: $viewModel.isShowingDetail)
             }
         }
     }
