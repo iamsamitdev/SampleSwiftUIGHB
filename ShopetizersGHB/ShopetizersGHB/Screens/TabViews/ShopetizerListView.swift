@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ShopetizerListView: View {
     
-    // โหลดตัวแปร shopetizers จาก MockData มาใช้งาน
-    var shopetizers = MockData.shopetizers
+    // โหลดตัวแปร shopetizers จาก ViewModel มาใช้งาน
+    @StateObject var viewModel = ShopetizerListViewModel()
     
     var body: some View {
         ZStack {
             NavigationView {
-                List(shopetizers) { shopetizer in
+                List(viewModel.shopetizers) { shopetizer in
                     ShopetizerListCell(shopetizer: shopetizer)
                         .onTapGesture {
                             print("Tap on shopetizer: \(shopetizer.name)")
@@ -25,6 +25,14 @@ struct ShopetizerListView: View {
                 .navigationTitle("🍟 Shopetizers")
             }
             .navigationViewStyle(.stack)
+            .onAppear {
+                viewModel.getShopetizers()
+            }
+            
+            // แสดง loading หากยังโหลดข้อมูลไม่เสร็จ
+            if viewModel.isLoading {
+                LoadingView(loadingTitle: "กำลังโหลดรายการสินค้า...")
+            }
         }
     }
 }

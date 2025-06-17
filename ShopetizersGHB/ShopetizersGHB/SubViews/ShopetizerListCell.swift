@@ -13,11 +13,25 @@ struct ShopetizerListCell: View {
     
     var body: some View {
         HStack {
-            Image(shopetizer.imageURL)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 120, height: 90)
-                .cornerRadius(8)
+//            Image(shopetizer.imageURL)
+//                .resizable()
+//                .aspectRatio(contentMode: .fit)
+//                .frame(width: 120, height: 90)
+//                .cornerRadius(8)
+            AsyncImage(url: URL(string: shopetizer.imageURL)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 120, height: 90)
+                    .cornerRadius(8)
+            } placeholder: {
+                Image("food-placeholder")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 120, height: 90)
+                    .cornerRadius(8)
+            }
+            
             VStack (alignment: .leading, spacing: 5) {
                 Text(shopetizer.name)
                     .font(.title2)
