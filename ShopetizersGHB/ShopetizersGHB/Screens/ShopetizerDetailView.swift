@@ -15,6 +15,9 @@ struct ShopetizerDetailView: View {
     // Binding isShowingDetail
     @Binding var isShowingDetail: Bool
     
+    // การเรียกใช้งานตัวแปร environmentObject
+    @EnvironmentObject var orders: OrderViewModel
+    
     var body: some View {
         VStack {
 //            Image(shopetizer.imageURL)
@@ -55,6 +58,8 @@ struct ShopetizerDetailView: View {
             
             Button {
                 // print("Added order")
+                orders.add(shopetizer)
+                print("totalPrice \(orders.totalPrice)")
                 isShowingDetail = false // ซ่อนหน้าต่างสินค้า
             } label: {
                 Text("$\(shopetizer.price, specifier: "%.2f") - Add to Order")
@@ -112,5 +117,6 @@ struct ShopetizerDetailView_Previews: PreviewProvider {
         ShopetizerDetailView(
             shopetizer: MockData.sampleShopetizer,
             isShowingDetail: .constant(true))
+        .environmentObject(OrderViewModel())
     }
 }

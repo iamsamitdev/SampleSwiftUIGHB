@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct ShopetizersGHBApp: App {
+    
+    var orders = OrderViewModel()
+    
     var body: some Scene {
         WindowGroup {
             ShopetizerTabView()
+                .environmentObject(orders)
         }
     }
 }
