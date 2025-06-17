@@ -28,4 +28,5 @@ struct ShopetizerTabView: View {
 
 #Preview {
     ShopetizerTabView()
+        .environmentObject(OrderViewModel())
 }

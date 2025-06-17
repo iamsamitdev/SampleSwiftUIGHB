@@ -50,5 +50,6 @@ struct ShopetizerListView: View {
 struct ShopetizerListView_Previews: PreviewProvider {
     static var previews: some View {
         ShopetizerListView()
+            .environmentObject(OrderViewModel())
     }
 }
