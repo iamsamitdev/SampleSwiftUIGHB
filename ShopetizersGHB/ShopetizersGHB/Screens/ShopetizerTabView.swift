@@ -9,13 +9,20 @@ import SwiftUI
 
 struct ShopetizerTabView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            ShopetizerListView()
+                .tabItem {
+                    Label("Home", systemImage: "house")
+                }
+            OrderView()
+                .tabItem {
+                    Label("Orders", systemImage: "bag")
+                }
+            AccountView()
+                .tabItem {
+                    Label("Person", systemImage: "person")
+                }
         }
-        .padding()
     }
 }
 

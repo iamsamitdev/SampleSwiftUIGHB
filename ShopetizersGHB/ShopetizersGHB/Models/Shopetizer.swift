@@ -19,3 +19,25 @@ struct Shopetizer: Decodable, Identifiable {
     let description: String
     
 }
+
+struct ShopetizerResponse: Decodable {
+    let request: [Shopetizer]
+}
+
+struct MockData {
+    static let sampleShopetizer = Shopetizer(
+        id: 001,
+        name: "Pancakes",
+        protein: 10,
+        price: 10.0,
+        imageURL: "asian-flank-steak",
+        carbs: 5,
+        calories: 200,
+        description: "This is the demo decription for Shopetizer"
+    )
+    
+    static let shopetizers = [sampleShopetizer, sampleShopetizer, sampleShopetizer, sampleShopetizer]
+}
+
+
+
