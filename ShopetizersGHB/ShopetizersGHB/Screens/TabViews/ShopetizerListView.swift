@@ -24,6 +24,7 @@ struct ShopetizerListView: View {
                 .listStyle(.plain)
                 .navigationTitle("🍟 Shopetizers")
             }
+            .navigationViewStyle(.stack)
         }
     }
 }
