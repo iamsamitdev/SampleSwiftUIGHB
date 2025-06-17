@@ -19,8 +19,8 @@ struct AlertContext {
     
     //MARK: - Network API Alert
     static let invalidData      = AlertItem(title: Text("มีข้อผิดพลาดจาก Server"),
-                                            message: Text("รูปแบบข้อมูลที่ได้ไม่ถูกต้อง กรุณาติดต่อผู้ดูแล"),
-                                            dismissButton: .default(Text("OK")))
+    message: Text("รูปแบบข้อมูลที่ได้ไม่ถูกต้อง กรุณาติดต่อผู้ดูแล"),
+    dismissButton: .default(Text("OK")))
     
     static let invalidResponse  = AlertItem(title: Text("มีข้อผิดพลาดจาก Server"),
                                             message: Text("ไม่มีการตอบกลับจาก Server กรุณาติดต่อผู้ดูแล"),
