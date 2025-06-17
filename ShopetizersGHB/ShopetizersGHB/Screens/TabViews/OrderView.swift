@@ -20,12 +20,24 @@ struct OrderView: View {
                 ZStack {
                     VStack {
                         List {
-                            ForEach(order.items) { Shopetizer in
-                                ShopetizerListCell(shopetizer: Shopetizer)
+                            ForEach(order.items) { orderItem in
+                                OrderItemRow(orderItem: orderItem)
                                     .listRowSeparator(.hidden)
                             }
+                            .onDelete(perform: order.deleteItems)
                         }
                         .listStyle(.plain)
+                        
+                        Button {
+                            print("Order Placed")
+                            // สามารถไป apply เพื่อส่งเข้าครัวหรืออื่น ๆ ตามต้องการ
+                        } label: {
+                            Text("$\(order.totalPrice, specifier: "%.2f") - Place Order")
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(Color.accentColor)
+                        .controlSize(.large)
+                        .padding(.bottom, 25)
                     }
                 }
                 
@@ -59,5 +71,86 @@ struct OrderView_Previews: PreviewProvider {
     
     static var previews: some View {
         OrderView().environmentObject(OrderViewModel())
+    }
+}
+
+struct OrderItemRow: View {
+    @ObservedObject var orderItem: OrderItem
+    @EnvironmentObject var order: OrderViewModel
+    
+    var body: some View {
+        HStack {
+            AsyncImage(url: URL(string: orderItem.shopetizer.imageURL)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 75, height: 50)
+                    .clipShape(Circle())
+            } placeholder: {
+                Image("food-placeholder")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 75, height: 50)
+                    .clipShape(Circle())
+            }
+            
+            VStack(alignment: .leading, spacing: 5) {
+                Text(orderItem.shopetizer.name)
+                    .font(.title2)
+                    .fontWeight(.medium)
+                Text("$\(orderItem.shopetizer.price, specifier: "%.2f") x \(orderItem.quantity)")
+                    .foregroundColor(.secondary)
+                    .fontWeight(.semibold)
+                Text("รวม: $\(orderItem.totalPrice, specifier: "%.2f")")
+                    .foregroundColor(.primary)
+                    .fontWeight(.bold)
+            }
+            
+            Spacer()
+            
+            VStack {
+                HStack(spacing: 15) {
+                    Button {
+                        print("Decrease button tapped for \(orderItem.shopetizer.name)")
+                        order.decreaseQuantity(for: orderItem)
+                    } label: {
+                        ZStack {
+                            Circle()
+                                .fill(Color.red.opacity(0.1))
+                                .frame(width: 44, height: 44)
+                            Image(systemName: "minus.circle.fill")
+                                .foregroundColor(.red)
+                                .imageScale(.large)
+                        }
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Text("\(orderItem.quantity)")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .frame(width: 40)
+                        .padding(.horizontal, 8)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(8)
+                    
+                    Button {
+                        print("Increase button tapped for \(orderItem.shopetizer.name)")
+                        order.increaseQuantity(for: orderItem)
+                    } label: {
+                        ZStack {
+                            Circle()
+                                .fill(Color.green.opacity(0.1))
+                                .frame(width: 44, height: 44)
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundColor(.green)
+                                .imageScale(.large)
+                        }
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+            }
+        }
+        .padding(.vertical, 5)
+        .allowsHitTesting(true)
     }
 }
