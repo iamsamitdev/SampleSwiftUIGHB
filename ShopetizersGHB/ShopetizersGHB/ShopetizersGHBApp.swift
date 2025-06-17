@@ -1,0 +1,17 @@
+//
+//  ShopetizersGHBApp.swift
+//  ShopetizersGHB
+//
+//  Created by Samit Koyom on 17/6/2568 BE.
+//
+
+import SwiftUI
+
+@main
+struct ShopetizersGHBApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ShopetizerTabView()
+        }
+    }
+}
